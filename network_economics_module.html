@@ -1,0 +1,559 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Network Economics: Scarcity vs. Plentitude | BUAD 683</title>
+<style>
+  :root{
+    --maroon: #6a1e2f;
+    --maroon-dark: #4a1520;
+    --gold: #c9a35c;
+    --gold-light: #e8d4a4;
+    --cream: #faf7f0;
+    --ink: #2a2320;
+    --slate: #5b5450;
+    --line: #e3dccb;
+    --white: #ffffff;
+  }
+  *{box-sizing:border-box;}
+  body{
+    margin:0;
+    font-family: 'Georgia', 'Iowan Old Style', serif;
+    background: var(--cream);
+    color: var(--ink);
+    line-height:1.65;
+  }
+  .wrap{max-width:900px; margin:0 auto; padding: 0 24px 80px;}
+
+  /* HERO */
+  .hero{
+    background: linear-gradient(135deg, var(--maroon) 0%, var(--maroon-dark) 100%);
+    color: var(--white);
+    padding: 64px 24px 56px;
+    position: relative;
+    overflow:hidden;
+  }
+  .hero::after{
+    content:"";
+    position:absolute; right:-60px; top:-60px;
+    width:280px; height:280px; border-radius:50%;
+    border: 2px solid rgba(201,163,92,0.35);
+  }
+  .hero::before{
+    content:"";
+    position:absolute; right:20px; top:40px;
+    width:180px; height:180px; border-radius:50%;
+    border: 2px solid rgba(201,163,92,0.25);
+  }
+  .eyebrow{
+    font-family: 'Helvetica Neue', Arial, sans-serif;
+    text-transform: uppercase;
+    letter-spacing: 3px;
+    font-size: 12px;
+    color: var(--gold-light);
+    margin: 0 0 14px;
+  }
+  .hero h1{
+    font-size: clamp(28px, 4.5vw, 42px);
+    margin: 0 0 16px;
+    max-width: 640px;
+    font-weight: 700;
+  }
+  .hero p.lede{
+    max-width: 600px;
+    font-size: 17px;
+    color: rgba(255,255,255,0.88);
+    margin: 0;
+  }
+
+  section{padding: 48px 0; border-bottom: 1px solid var(--line);}
+  section:last-of-type{border-bottom:none;}
+  h2{
+    font-family: 'Helvetica Neue', Arial, sans-serif;
+    color: var(--maroon);
+    font-size: 24px;
+    letter-spacing: 0.3px;
+    margin: 0 0 6px;
+    display:flex; align-items:center; gap:12px;
+  }
+  h2 .tag{
+    font-size:11px;
+    letter-spacing:2px;
+    text-transform:uppercase;
+    background: var(--gold);
+    color: var(--maroon-dark);
+    padding: 4px 10px;
+    border-radius: 3px;
+    font-weight:700;
+  }
+  h3{color: var(--maroon-dark); font-size:18px; margin: 28px 0 8px;}
+  p{color: var(--ink); font-size:16px;}
+
+  /* SCARCITY VS PLENTITUDE COMPARISON */
+  .compare{
+    display:grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+    margin: 28px 0;
+  }
+  @media (max-width:640px){ .compare{grid-template-columns:1fr;} }
+  .card{
+    background: var(--white);
+    border: 1px solid var(--line);
+    border-top: 4px solid var(--maroon);
+    padding: 22px 22px 20px;
+    border-radius: 6px;
+  }
+  .card.gold{ border-top-color: var(--gold); }
+  .card h4{
+    font-family:'Helvetica Neue', Arial, sans-serif;
+    margin:0 0 4px;
+    font-size:13px;
+    letter-spacing:1.5px;
+    text-transform:uppercase;
+    color: var(--slate);
+  }
+  .card .big{
+    font-size: 22px;
+    font-weight:700;
+    color: var(--maroon-dark);
+    margin: 0 0 10px;
+  }
+  .card ul{margin:10px 0 0; padding-left:20px;}
+  .card li{margin-bottom:6px; font-size:15px;}
+
+  /* INSTAGRAM CALLOUT */
+  .callout{
+    background: var(--maroon);
+    color: var(--white);
+    border-radius: 8px;
+    padding: 26px 28px;
+    margin: 24px 0;
+    position:relative;
+  }
+  .callout .q{
+    font-family: 'Helvetica Neue', Arial, sans-serif;
+    font-size: 13px;
+    text-transform:uppercase;
+    letter-spacing:2px;
+    color: var(--gold-light);
+    margin:0 0 10px;
+  }
+  .callout p{color: rgba(255,255,255,0.95); margin:0; font-size:16px;}
+
+  /* NETWORK TYPES TABLE */
+  .net-types{
+    display:grid;
+    grid-template-columns: 1fr 1fr;
+    gap:16px;
+    margin: 20px 0;
+  }
+  @media (max-width:640px){ .net-types{grid-template-columns:1fr;} }
+  .net-box{
+    border: 1px dashed var(--gold);
+    background: #fffdf9;
+    padding: 18px 20px;
+    border-radius:6px;
+  }
+  .net-box strong{color:var(--maroon);}
+
+  /* VIDEO SECTION */
+  .video-frame{
+    background: var(--ink);
+    border-radius: 8px;
+    aspect-ratio: 16/9;
+    display:flex; align-items:center; justify-content:center;
+    color: var(--gold-light);
+    font-family:'Helvetica Neue', Arial, sans-serif;
+    text-align:center;
+    padding: 20px;
+    margin: 20px 0;
+  }
+  .video-frame span.label{
+    display:block; font-size:13px; letter-spacing:2px; text-transform:uppercase;
+    color: var(--gold); margin-bottom:8px;
+  }
+
+  /* REFLECTION QUESTIONS */
+  .reflect{
+    background: var(--white);
+    border: 1px solid var(--line);
+    border-left: 4px solid var(--maroon);
+    border-radius: 6px;
+    padding: 20px 22px;
+    margin: 18px 0;
+  }
+  .reflect label{
+    display:block;
+    font-family:'Helvetica Neue', Arial, sans-serif;
+    font-weight:700;
+    color: var(--maroon-dark);
+    margin-bottom:10px;
+    font-size:15px;
+  }
+  .reflect textarea{
+    width:100%;
+    min-height:90px;
+    padding:12px;
+    border:1px solid var(--line);
+    border-radius:4px;
+    font-family: Georgia, serif;
+    font-size:15px;
+    resize:vertical;
+    background:#fffefb;
+  }
+  .reflect textarea:focus{outline:2px solid var(--gold); border-color:var(--gold);}
+  .save-note{
+    font-family:'Helvetica Neue', Arial, sans-serif;
+    font-size:12px;
+    color: var(--slate);
+    margin-top:8px;
+  }
+  .save-note .ok{color:#3a7a3a; font-weight:700;}
+
+  /* INSTRUCTOR RESPONSE REVEAL — "wax seal" unlock */
+  .instructor-toggle{ margin-top:16px; }
+  .seal-btn{
+    background: var(--maroon);
+    color: var(--white);
+    border: none;
+    padding: 10px 20px 10px 16px;
+    border-radius: 30px;
+    font-family: 'Helvetica Neue', Arial, sans-serif;
+    font-size: 12.5px;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    font-weight: 700;
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    box-shadow: 0 2px 6px rgba(74,21,32,0.28);
+    transition: background 0.2s, transform 0.15s;
+  }
+  .seal-btn:hover{ background: var(--maroon-dark); transform: translateY(-1px); }
+  .seal-btn:active{ transform: translateY(0); }
+  .seal-btn .seal-icon{
+    width: 18px; height: 18px;
+    border-radius: 50%;
+    background: radial-gradient(circle at 35% 30%, var(--gold-light), var(--gold) 70%);
+    box-shadow: inset 0 0 0 2px var(--maroon-dark);
+    display: inline-block;
+    position: relative;
+    transition: transform 0.4s ease;
+  }
+  .seal-btn.open .seal-icon{ transform: rotate(200deg) scale(0.9); }
+  .seal-btn .seal-icon::after{
+    content:"";
+    position:absolute; inset:5px;
+    border-radius:50%;
+    border: 1px solid rgba(74,21,32,0.35);
+  }
+
+  .instructor-note{
+    max-height: 0;
+    overflow: hidden;
+    opacity: 0;
+    transition: max-height 0.5s ease, opacity 0.4s ease, margin-top 0.4s ease;
+  }
+  .instructor-note.open{
+    max-height: 700px;
+    opacity: 1;
+    margin-top: 14px;
+  }
+  .instructor-note-inner{
+    background: linear-gradient(135deg, #fffdf8 0%, var(--gold-light) 130%);
+    border: 1px solid var(--gold);
+    border-radius: 8px;
+    padding: 18px 20px 16px;
+    position: relative;
+  }
+  .instructor-note-inner::before{
+    content: "Professor Murray's Response";
+    display: block;
+    font-family: 'Helvetica Neue', Arial, sans-serif;
+    font-size: 11px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--maroon);
+    font-weight: 700;
+    margin-bottom: 10px;
+  }
+  .instructor-note-inner p{
+    margin: 0;
+    font-size: 15px;
+    color: var(--ink);
+    line-height: 1.6;
+  }
+  .instructor-note-inner p + p{ margin-top: 10px; }
+
+  /* FLASHCARDS */
+  .flash-grid{
+    display:grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 18px;
+    margin: 24px 0;
+  }
+  .flashcard{
+    perspective: 1000px;
+    height: 170px;
+    cursor:pointer;
+  }
+  .flashcard-inner{
+    position:relative;
+    width:100%; height:100%;
+    transition: transform 0.55s cubic-bezier(.4,.2,.2,1);
+    transform-style: preserve-3d;
+  }
+  .flashcard.flipped .flashcard-inner{ transform: rotateY(180deg); }
+  .flashcard-face{
+    position:absolute; inset:0;
+    border-radius:8px;
+    display:flex; flex-direction:column; align-items:center; justify-content:center;
+    text-align:center;
+    padding: 18px;
+    backface-visibility:hidden;
+    font-family:'Helvetica Neue', Arial, sans-serif;
+  }
+  .flashcard-front{
+    background: var(--maroon);
+    color: var(--white);
+  }
+  .flashcard-front .term{font-size:17px; font-weight:700;}
+  .flashcard-front .hint{font-size:11px; color: var(--gold-light); margin-top:10px; letter-spacing:1px; text-transform:uppercase;}
+  .flashcard-back{
+    background: var(--gold-light);
+    color: var(--maroon-dark);
+    transform: rotateY(180deg);
+    font-size:13.5px;
+    line-height:1.5;
+  }
+
+  /* FOOTER NAV */
+  .footer-note{
+    text-align:center;
+    font-family:'Helvetica Neue', Arial, sans-serif;
+    font-size:13px;
+    color: var(--slate);
+    padding: 30px 24px 10px;
+  }
+
+  ul.plain{padding-left:20px;}
+  ul.plain li{margin-bottom:8px;}
+</style>
+</head>
+<body>
+
+<div class="hero">
+  <div class="wrap" style="padding:0;">
+    <p class="eyebrow">BUAD 683 &middot; Information &amp; Knowledge Management &middot; Async Module</p>
+    <h1>Value in Scarcity vs. Value in Plentitude</h1>
+    <p class="lede">How a free photo-sharing app became worth a billion dollars in under two years — without ever making anything rare.</p>
+  </div>
+</div>
+
+<div class="wrap">
+
+  <section>
+    <h2><span class="tag">Warm-Up</span> The Instagram Question</h2>
+    <p>In 2012, Facebook acquired Instagram — a small mobile app with no factories, no inventory, and no physical product — for roughly one billion dollars. The app was barely two years old and had never turned a profit.</p>
+    <div class="callout">
+      <p class="q">Think about it before you read on</p>
+      <p>How does a company with nothing to manufacture, mine, or ship generate that kind of value? What exactly were investors paying for?</p>
+    </div>
+    <p>The answer requires unlearning the logic that governs most of the physical economy: the logic of <strong>scarcity</strong>.</p>
+  </section>
+
+  <section>
+    <h2><span class="tag">Core Concept</span> Two Logics of Value</h2>
+    <p>Traditional economics teaches that value rises as supply falls. Digital network economics often works the opposite way — value rises as the number of participants grows. Both logics are real; they just apply to different kinds of assets.</p>
+
+    <div class="compare">
+      <div class="card">
+        <h4>Physical / Traditional Assets</h4>
+        <div class="big">Value in Scarcity</div>
+        <p>Worth increases as availability decreases.</p>
+        <ul>
+          <li>A diamond's value comes from its rarity and unique physical beauty.</li>
+          <li>The fewer that exist, the higher the price buyers will pay.</li>
+          <li>Value is tied to the <em>object itself</em>, independent of how many other people own one.</li>
+        </ul>
+      </div>
+      <div class="card gold">
+        <h4>Digital / Network Assets</h4>
+        <div class="big">Value in Plentitude</div>
+        <p>Worth increases as adoption increases.</p>
+        <ul>
+          <li>Instagram's "first copy" would be worth nothing to a buyer on its own.</li>
+          <li>Its value comes from the size of its active network and what members share within it.</li>
+          <li>Value is tied to <em>connections between people</em> — relationships, reputation, content, and communication.</li>
+        </ul>
+      </div>
+    </div>
+
+    <p><strong>The takeaway for managers:</strong> before you evaluate a digital product or platform, ask whether its value model is scarcity-based or network-based. Applying scarcity thinking to a network asset — or vice versa — leads to badly mispriced strategy decisions.</p>
+  </section>
+
+  <section>
+    <h2><span class="tag">Core Concept</span> Physical vs. Virtual Networks</h2>
+    <p>Both types of networks derive value from connections between nodes — but the nature of that connection differs.</p>
+    <div class="net-types">
+      <div class="net-box">
+        <strong>Physical Networks</strong>
+        <p style="margin:8px 0 0;">Nodes are connected by actual, visible infrastructure — think highways, power grids, telephone lines, or ATM networks. The connection has a physical, tangible form.</p>
+      </div>
+      <div class="net-box">
+        <strong>Virtual Networks</strong>
+        <p style="margin:8px 0 0;">Nodes are connected invisibly — through software, protocols, and platforms. Instagram, LinkedIn, and Venmo are virtual networks: no wires connect the users, but the network still enables sharing and communication.</p>
+      </div>
+    </div>
+    <p>On <strong>virtual networks</strong> specifically, what gets shared isn't limited to money or physical goods — it includes multimedia, expertise, opinions, reputation, and social capital. This is why a "free" app can still generate enormous value: the currency being exchanged is attention, data, and relationships, not cash.</p>
+  </section>
+
+  <section>
+    <h2><span class="tag">Reflect</span> Answer &amp; Compare</h2>
+    <p>Type your response in each box below, then compare your thinking to your instructor's posted response in Canvas. Your answers are saved locally in your browser as you type, so you can leave and return to this page.</p>
+
+    <div class="reflect">
+      <label>1. Instagram itself never had to become scarce to be worth billions. In your own words, what was Facebook actually paying for when it acquired Instagram?</label>
+      <textarea data-key="q1" placeholder="Type your answer here..."></textarea>
+      <div class="save-note">Not yet saved</div>
+      <div class="instructor-toggle">
+        <button class="seal-btn" type="button" data-target="note-q1"><span class="seal-icon"></span>Unseal Professor Murray's Response</button>
+      </div>
+      <div class="instructor-note" id="note-q1">
+        <div class="instructor-note-inner">
+          <p>Facebook wasn't buying a product in the traditional sense — there was no factory, patent, or physical asset that made Instagram scarce or hard to replicate. What it was buying was a fully-formed <em>network</em>: tens of millions of active users, the connections between them, and the habits and attention already built around the app.</p>
+          <p>That network came with three things money can't easily buy from scratch: an existing social graph (who follows whom), a stream of user-generated content that keeps people coming back, and a distribution channel Facebook could eventually monetize through advertising. In other words, Facebook paid for plentitude itself — the size and density of the network — not for any single copy of the software.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="reflect">
+      <label>2. Think of a digital product or platform you use regularly. Does its value come primarily from scarcity or from plentitude? Explain your reasoning.</label>
+      <textarea data-key="q2" placeholder="Type your answer here..."></textarea>
+      <div class="save-note">Not yet saved</div>
+      <div class="instructor-toggle">
+        <button class="seal-btn" type="button" data-target="note-q2"><span class="seal-icon"></span>Unseal Professor Murray's Response</button>
+      </div>
+      <div class="instructor-note" id="note-q2">
+        <div class="instructor-note-inner">
+          <p>There's no single right answer here since your example is personal — but here's how I'd reason through one: take a platform like Zoom or LinkedIn. Neither has any real scarcity to sell; anyone can create an account for free. Their value comes entirely from plentitude — the more colleagues, clients, or contacts already on the platform, the more useful it becomes for you to join too. That's a network effect.</p>
+          <p>Compare that to something like a limited-edition sneaker drop sold through an app. The app itself is a distribution tool, but the underlying <em>product</em> still derives its value from scarcity — only a fixed number exist. The lesson: don't judge the value logic by the technology (app vs. no app); judge it by whether more participants make the offering more valuable (plentitude) or whether fewer available units make it more valuable (scarcity). Some products even blend both.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="reflect">
+      <label>3. The reading notes that once an account or network reaches a significant size, unit costs of marketing stop declining and coordination/overhead costs start limiting profit growth. What does this suggest about the limits of network effects — is bigger always better?</label>
+      <textarea data-key="q3" placeholder="Type your answer here..."></textarea>
+      <div class="save-note">Not yet saved</div>
+      <div class="instructor-toggle">
+        <button class="seal-btn" type="button" data-target="note-q3"><span class="seal-icon"></span>Unseal Professor Murray's Response</button>
+      </div>
+      <div class="instructor-note" id="note-q3">
+        <div class="instructor-note-inner">
+          <p>No — bigger is not automatically better, and this is a common misreading of network effects. Network effects describe how the <em>value</em> of a network to its members grows with size. They say nothing about whether the <em>cost</em> of running that network grows at the same, slower, or faster rate.</p>
+          <p>In practice, very large networks run into diminishing returns: marketing no longer gets cheaper per new user once you've saturated the easy-to-reach audience, and internal costs — coordination across teams, content moderation, customer support, management layers — start rising just to keep the larger network functioning. That's why the smartest strategic question isn't "how do we get as big as possible," but "where is the point at which added scale stops adding more value than it costs to manage?" This is also why not every market tips toward one dominant winner — firms serving a well-defined niche well can out-earn firms chasing raw scale.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <h2><span class="tag">Core Concept</span> Tipping Points &amp; Tippy Markets</h2>
+    <p>Networks with strong positive feedback — where more users make the product more valuable, which attracts even more users — behave very differently from ordinary markets. Two terms describe this dynamic:</p>
+    <h3>Tippy Market</h3>
+    <p>A market subject to strong positive feedback loops, where growth accelerates rather than levels off as adoption increases.</p>
+    <h3>Tipping Point</h3>
+    <p>The moment a market reaches critical mass and one player begins to dominate — sometimes called the "watershed of dominance," because from that point forward it's largely winner-take-all.</p>
+
+    <div class="callout">
+      <p class="q">Not every market tips</p>
+      <p>New members don't automatically add value for everyone. Compare Garmin GPS devices (not tippy — customers have varied, niche needs a single winner can't satisfy) with something like a ride-sharing network (tippy — more riders and more drivers make the service better for everyone on it).</p>
+    </div>
+
+    <p>The variety of customer needs is what preserves distinct market niches even inside categories that otherwise show network effects. Managers should ask: does adding one more customer make the product genuinely better for every existing customer, or does it simply add another user without shared benefit? The answer determines whether a market is tippy — and whether "winning big fast" or "serving a niche well" is the smarter strategy.</p>
+  </section>
+
+  <section>
+    <h2><span class="tag">Review</span> Flashcards — Network Economics Terms</h2>
+    <p>Click any card to flip it and check the definition. Use these to self-test before the next synchronous session.</p>
+
+    <div class="flash-grid" id="flashGrid"></div>
+  </section>
+
+</div>
+
+<div class="footer-note">
+  BUAD 683 &middot; Information &amp; Knowledge Management &middot; University of Redlands School of Business
+</div>
+
+<script>
+  // Flashcard data
+  const cards = [
+    {term:"Value in Scarcity", def:"Value that increases as availability decreases. Typical of physical goods like diamonds, where rarity drives price."},
+    {term:"Value in Plentitude", def:"Value that increases as the number of participants or connections grows. Typical of digital networks like Instagram."},
+    {term:"Physical Network", def:"A network where nodes are connected by tangible infrastructure — roads, ATMs, cables, pipelines."},
+    {term:"Virtual Network", def:"A network where nodes are connected invisibly through software or platforms, enabling sharing of multimedia, expertise, and opinions."},
+    {term:"Network Effect", def:"The phenomenon where a product or service becomes more valuable as more people use it."},
+    {term:"Tippy Market", def:"A market subject to strong positive feedback loops, prone to rapid, accelerating growth toward one dominant player."},
+    {term:"Tipping Point", def:"The moment a market reaches critical mass and one player begins to dominate — the 'watershed of dominance.'"},
+    {term:"Critical Mass", def:"The minimum level of adoption needed for a network's growth to become self-sustaining."},
+    {term:"Winner-Take-All Market", def:"A market where, after the tipping point, one dominant player captures most of the value, leaving little room for competitors."},
+    {term:"Market Niche", def:"A distinct segment of customer need that a single dominant network cannot fully satisfy — a reason some markets resist tipping."},
+    {term:"Diminishing Returns to Scale", def:"The point at which growing an account or network further no longer reduces unit costs, as coordination and overhead costs rise instead."}
+  ];
+
+  const grid = document.getElementById('flashGrid');
+  cards.forEach((c, i) => {
+    const el = document.createElement('div');
+    el.className = 'flashcard';
+    el.innerHTML = `
+      <div class="flashcard-inner">
+        <div class="flashcard-face flashcard-front">
+          <div class="term">${c.term}</div>
+          <div class="hint">Click to flip</div>
+        </div>
+        <div class="flashcard-face flashcard-back">${c.def}</div>
+      </div>
+    `;
+    el.addEventListener('click', () => el.classList.toggle('flipped'));
+    grid.appendChild(el);
+  });
+
+  // Reflection textarea autosave (localStorage)
+  document.querySelectorAll('.reflect textarea').forEach(ta => {    const key = 'buad683_scarcity_plentitude_' + ta.dataset.key;
+    const noteEl = ta.parentElement.querySelector('.save-note');
+    const saved = localStorage.getItem(key);
+    if (saved) {
+      ta.value = saved;
+      noteEl.innerHTML = '<span class="ok">Saved</span> — restored from your last visit';
+    }
+    let timer;
+    ta.addEventListener('input', () => {
+      noteEl.textContent = 'Typing...';
+      clearTimeout(timer);
+      timer = setTimeout(() => {
+        localStorage.setItem(key, ta.value);
+        noteEl.innerHTML = '<span class="ok">Saved</span> to this browser';
+      }, 600);
+    });
+  });
+
+  // Instructor response "wax seal" reveal toggles
+  document.querySelectorAll('.seal-btn').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const note = document.getElementById(btn.dataset.target);
+      const isOpen = note.classList.toggle('open');
+      btn.classList.toggle('open', isOpen);
+      btn.innerHTML = isOpen
+        ? '<span class="seal-icon"></span>Hide Professor Murray\'s Response'
+        : '<span class="seal-icon"></span>Unseal Professor Murray\'s Response';
+    });
+  });
+</script>
+
+</body>
+</html>
